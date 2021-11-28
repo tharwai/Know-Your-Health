@@ -61,7 +61,7 @@ def diabetes():
 def ValuePredictordiabetes(to_predict_list, size):
     to_predict = np.array(to_predict_list).reshape(1, size)
     if size == 6:
-        loaded_model_diabetes = joblib.load('diabetesDTC.pkl')
+        loaded_model_diabetes = joblib.load('diabetesRFC.pkl')
         result = loaded_model_diabetes.predict(to_predict)
     return result[0]
 
@@ -88,7 +88,7 @@ def heart():
 def ValuePredictorheart(to_predict_list, size):
     to_predict = np.array(to_predict_list).reshape(1, size)
     if size == 7:
-        loaded_model_heart = joblib.load('HeartDTC.pkl')
+        loaded_model_heart = joblib.load('HeartRFC.pkl')
         result = loaded_model_heart.predict(to_predict)
     return result[0]
 
@@ -110,8 +110,7 @@ def predictheart():
 @app.route("/kidney")
 def kidney():
     return render_template("kidney.html")
-
-def ValuePredictorKidney(to_predict_list, size):
+def ValuePredictorkidney(to_predict_list, size):
     to_predict = np.array(to_predict_list).reshape(1, size)
     if size == 7:
         loaded_model_kidney = joblib.load('KidneyRFC.pkl')
@@ -126,12 +125,13 @@ def predictkidney():
         to_predict_list = list(to_predict_list.values())
         to_predict_list = list(map(float, to_predict_list))
         if len(to_predict_list) == 7:
-            result = ValuePredictorKidney(to_predict_list, 7)
+            result = ValuePredictorkidney(to_predict_list, 7)
         if(int(result) == 1):
             prediction = "Patient has a high risk of Kidney Disease, please consult your doctor immediately"
         else:
             prediction = "Patient has a low risk of Kidney Disease"
     return render_template("kidney_result.html", prediction_text=prediction)
+
 
 
 @app.route("/liver")
